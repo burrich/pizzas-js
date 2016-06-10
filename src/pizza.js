@@ -9,6 +9,7 @@ export class Pizza {
     this.status = 0
   }
 
+
   setName (nom) {
     this.nom = nom
   }
