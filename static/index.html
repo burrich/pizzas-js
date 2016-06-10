@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Budo</title>
+  <title>Liste des pizzas</title>
   <meta charset="UTF-8">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -12,29 +12,22 @@
 <body>
   <div class="container">
 
-    <div class="row">
-      <h1>Nouvelle Pizza</h1>
-    </div>
+    <h1>Liste des pizzas</h1>
 
-    <div class="row">
-      <div class="">
-        <input type="text" id="name" class="form-control">
-      </div>
-      
-      <button id="createPizza" class="btn btn-default">Créer pizza</button>
-    </div>
-
-    <br>
-
-    <div class="row" id="toppings">
-      Toppings :<br><br>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <button type="button" id="savePizza" class="btn btn-default">Enregistrer pizza</button>
-    </div>
+    <button id="createPizza" class="btn btn-default">Créer pizza</button>
+    
+    <table class="table" id="pizzasTable">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Ingrédients</th>
+          <th><th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    
   </div>
 
   <script src="build.js"></script>
