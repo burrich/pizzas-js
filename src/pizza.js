@@ -1,14 +1,14 @@
 import { toppings as authorizedToppings } from './toppings.js'
 
 export class Pizza {
-  constructor (ref, nom, prix) {
+  constructor (id, ref, nom, prix) {
+    this.id = id
     this.ref = ref
     this.nom = nom
     this.prix = prix
     this.toppings = []
     this.status = 0
   }
-
 
   setName (nom) {
     this.nom = nom

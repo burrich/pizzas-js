@@ -4,13 +4,18 @@ export class PizzaList {
   constructor () {
     this.db = new Dexie('pizzas')
     this.db.version(1).stores({
-      pizzas: '++id, name'
+      pizzas: '++id, nom, status'
     })
     this.db.open()
   }
 
   addPizza (pizza) {
+    console.log('before save', pizza)
     return this.db.pizzas.add(pizza)
+  }
+
+  deletePizza (pizzaId) {
+    return this.db.pizzas.delete(pizzaId)
   }
 
   getPizzas () {
