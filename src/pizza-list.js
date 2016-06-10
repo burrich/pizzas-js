@@ -10,7 +10,6 @@ export class PizzaList {
   }
 
   addPizza (pizza) {
-    console.log('before save', pizza)
     return this.db.pizzas.add(pizza)
   }
 
