@@ -1,6 +1,6 @@
 // import { Pizza } from './pizza.js'
 // import { PizzaList } from './pizza-list.js'
-
+import { Nom } from './noms.js'
 // var pizza1 = new Pizza('MAR', 'Margherita', 12)
 // console.log('pizza1 ')
 // console.log(pizza1)
@@ -57,6 +57,7 @@ var buttonSavePizza = document.getElementById('savePizza')
 var p = null // pizza
 
 var toppingsButtons = document.getElementById('toppings')
+var nomDeLapizza = document.getElementById('nomPizza')
 Object.keys(toppings).forEach(topping => {
   const toppingButton = document.createElement('button')
   toppingButton.innerHTML = topping
@@ -71,8 +72,9 @@ Object.keys(toppings).forEach(topping => {
 })
 
 buttonNewPizza.addEventListener('click', function (evt) {
-  var name = document.getElementById('name').value
+  var name = Nom[Math.floor(Math.random() * 4) + 1]
   p = new Pizza('TEST', name, 10)
+  nomDeLapizza.innerHTML = name
   console.log('Pizza créée', p)
 }, false)
 
@@ -82,7 +84,6 @@ buttonSavePizza.addEventListener('click', function (evt) {
       console.log('Pizza ajoutée', res, p)
     })
 }, false)
-
 
 // function getAvg (array) {
 //   return array.reduce((acc, cv, idx, arr) => acc + cv / arr.length, 0)
