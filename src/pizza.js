@@ -13,6 +13,10 @@ export class Pizza {
     this.nom = nom
   }
 
+  setToppings (toppings) {
+    this.toppings = toppings
+  }
+
   addTopping (topping) {
     // only authorized toppings
     if (Object.keys(authorizedToppings).indexOf(topping) === -1) return this
