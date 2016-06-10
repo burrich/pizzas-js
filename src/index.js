@@ -24,7 +24,18 @@ pizzas
       var td2 = document.createElement('td')
       var td3 = document.createElement('td')
       var td4 = document.createElement('td')
-      var button = document.createElement('button')
+      var td5 = document.createElement('td')
+      var cookButton = document.createElement('button')
+      var deleteButton = document.createElement('button')
+
+      cookButton.addEventListener('click', evt => {
+        cookButton.parentElement.previousSibling.innerHTML = 'En cours de cuisson'
+
+        p.cook(2000)
+        .then(() => {
+          cookButton.parentElement.previousSibling.innerHTML = 'Cuite'
+        })
+      })
 
       var status = null
       switch (p.status) {
@@ -41,25 +52,21 @@ pizzas
           break
       }
 
-      button.addEventListener('click', evt => {
-        button.parentElement.previousSibling.innerHTML = 'En cours de cuisson'
-
-        p.cook(2000)
-        .then(() => {
-          button.parentElement.previousSibling.innerHTML = 'Cuite'
-        })
-      })
-
       td1.innerHTML = p.nom
       td2.innerHTML = p.toppings
       td3.innerHTML = status
       tr.appendChild(td1)
       tr.appendChild(td2)
       tr.appendChild(td3)
-      button.className = 'btn btn-default'
-      button.innerHTML = 'Cuire'
-      td4.appendChild(button)
+
+      cookButton.className = 'btn btn-default'
+      cookButton.innerHTML = 'Cuire'
+      deleteButton.className = 'btn btn-default'
+      deleteButton.innerHTML = 'Supprimer'
+      td4.appendChild(cookButton)
+      td5.appendChild(deleteButton)
       tr.appendChild(td4)
+      tr.appendChild(td5)
       tbody.appendChild(tr)
     })
   })
