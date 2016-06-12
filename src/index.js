@@ -3,31 +3,21 @@ import { Pizza } from './pizza.js'
 import { PizzaList } from './pizza-list.js'
 
 var pizzasList = new PizzaList()
-
-// pizzasList.deletePizza(0)
-// var p = new Pizza(0, 'TEST', 'test', 10)
-// p.addTopping('mozzarella')
-// p.addTopping('eggs')
-// pizzasList.addPizza(p)
-
-// var pizzas = new PizzaList()
-
-var tbody = document.querySelector('#pizzasTable tbody')
-
 pizzasList
   .getPizzas()
-  .then(pizzasObjects => {
-    var pizzas = pizzasObjects.map(p => {
-      var pizza = new Pizza(null, p.nom, 0)
+  .then(pizzasJson => {
+    var pizzas = pizzasJson.map(p => {
+      console.log(p)
+      var pizza = new Pizza(p.name, p.id, p.status)
       pizza.setToppings(p.toppings)
       return pizza
     })
-    pizzas.forEach(lignePizza)
+
+    pizzas.forEach(ajoutLignePizza)
   })
-
-function lignePizza (pizza) {
-  console.log('ligne pizza', pizza)
-
+  
+function ajoutLignePizza (pizza) {
+  var tbody = document.querySelector('#pizzasTable tbody')
   var tr = document.createElement('tr')
   var td1 = document.createElement('td')
   var td2 = document.createElement('td')
@@ -38,18 +28,24 @@ function lignePizza (pizza) {
   var deleteButton = document.createElement('button')
 
   cookButton.addEventListener('click', evt => {
-    cookButton.parentElement.previousSibling.innerHTML = 'En cours de cuisson'
+    var statusElt = cookButton.parentElement.previousSibling
+    statusElt.innerHTML = 'En cours de cuisson'
 
-    pizza.cook(2000)
-      .then(() => {
-        cookButton.parentElement.previousSibling.innerHTML = 'Cuite'
+    pizza
+      .cook(2000)
+      .then(pizza => {
+        statusElt.innerHTML = 'Cuite'
+        cookButton.setAttribute('disabled', 'disabled')
+        pizzasList.updatePizza(pizza.id, pizza)
       })
+      .catch(err => console.log('Cook error : ', err))
   })
 
-  // deleteButton.addEventListener('click', evt => {
-  //   console.log('pizza a supprimer : ', p)
-  //   pizzasList.deletePizza(p.id)
-  // })
+  deleteButton.addEventListener('click', evt => {
+    console.log('pizza a supprimer : ', pizza)
+    pizzasList.deletePizza(pizza.id)
+    deleteButton.parentElement.parentElement.remove()
+  })
 
   var status = null
   switch (pizza.status) {
@@ -66,7 +62,7 @@ function lignePizza (pizza) {
       break
   }
 
-  td1.innerHTML = pizza.nom
+  td1.innerHTML = pizza.name
   td2.innerHTML = pizza.toppings
   td3.innerHTML = status
   tr.appendChild(td1)
@@ -85,14 +81,11 @@ function lignePizza (pizza) {
 }
 
 var buttonNewPizza = document.getElementById('createPizza')
-var nomDeLapizza = document.getElementById('nomPizza')
-
 buttonNewPizza.addEventListener('click', function (evt) {
   var name = Nom[Math.floor(Math.random() * 4) + 1]
-  var p = new Pizza('TEST', name, 10)
-  // nomDeLapizza.innerHTML = name
+  var p = new Pizza(name)
   pizzasList.addPizza(p)
-  lignePizza(p)
+  ajoutLignePizza(p)
 
   console.log('Pizza créée', p)
-}, false)
+})
